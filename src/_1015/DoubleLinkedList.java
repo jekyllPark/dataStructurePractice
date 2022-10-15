@@ -1,4 +1,4 @@
-package _1008;
+package _1015;
 
 public class DoubleLinkedList<T> {
     Node<T> head = null;
@@ -14,23 +14,23 @@ public class DoubleLinkedList<T> {
         }
     }
 
-    public void add(T data) {
+    public void add(T item) {
         if (this.head == null) {
-            this.head = new Node<>(data);
+            this.head = new Node<>(item);
             this.tail = this.head;
         } else {
             Node<T> node = this.head;
             while (node.next != null) {
                 node = node.next;
             }
-            node.next = new Node<>(data);
+            node.next = new Node<>(item);
             node.next.prev = node;
             this.tail = node.next;
         }
     }
 
     public void print() {
-        if(this.head == null) {
+        if (this.head == null) {
             System.out.println("no data");
         } else {
             Node<T> node = this.head;
@@ -43,58 +43,56 @@ public class DoubleLinkedList<T> {
     }
 
     public T searchFromHead(T target) {
-        if(this.head == null) {
+        if (this.head == null) {
             return null;
         } else {
             Node<T> node = this.head;
-            while (node != null) {
+            while(node != null) {
                 if(node.data == target) {
                     return node.data;
-                } else {
-                    node = node.next;
                 }
+                node = node.next;
             }
         }
         return null;
     }
 
-    public T searchFromTail(T target){
-        if(this.head == null) {
+    public T searchFromTail(T target) {
+        if (this.head == null) {
             return null;
         } else {
             Node<T> node = this.tail;
             while(node != null) {
                 if(node.data == target) {
                     return node.data;
-                } else {
-                    node = node.prev;
                 }
+                node = node.prev;
             }
         }
         return null;
     }
 
-    public boolean insertToFront(T data, T target) {
-        if(this.head == null) {
-            this.add(data);
+    public boolean insertToFront(T item, T target) {
+        if (this.head == null) {
+            this.add(item);
             return true;
-        } else if(this.head.data == target){
-            Node<T> newHead = new Node<>(data);
+        } else if(this.head.data == target) {
+            Node<T> newHead = new Node<>(item);
             newHead.next = this.head;
             this.head = newHead;
             this.head.next.prev = this.head;
             return true;
         } else {
             Node<T> node = this.head;
-            while(node != null) {
+            while (node != null) {
                 if(node.data == target) {
                     Node<T> prev = node.prev;
-                    prev.next = new Node<>(data);
+                    prev.next = new Node<>(item);
                     prev.next.next = node;
                     prev.next.prev = prev;
                     node.prev = prev.next;
                     return true;
-                } else {
+                }else{
                     node = node.next;
                 }
             }

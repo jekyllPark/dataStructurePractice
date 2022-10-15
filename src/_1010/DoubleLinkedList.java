@@ -56,7 +56,7 @@ public class DoubleLinkedList<T> {
 
     public T searchFromTail(T target) {
         if (this.head == null) return null;
-        Node<T> node = this.head;
+        Node<T> node = this.tail;
         while (node != null) {
             if (node.data == target) {
                 return node.data;
@@ -67,7 +67,7 @@ public class DoubleLinkedList<T> {
     }
 
     public boolean insertToFront(T item, T target) {
-        if (this.head == target) {
+        if (this.head == null) {
             this.add(item);
             return true;
         } else if (this.head.data == target) {
@@ -82,8 +82,9 @@ public class DoubleLinkedList<T> {
                 if (node.data == target) {
                     Node<T> prev = node.prev;
                     prev.next = new Node<>(item);
+                    prev.next.next = node;
                     prev.next.prev = prev;
-                    prev.prev = prev.next;
+                    node.prev = prev.next;
                     return true;
                 }
                 node = node.next;
